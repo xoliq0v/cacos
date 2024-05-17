@@ -1,5 +1,5 @@
 class UrlContainer {
-  static const String domainUrl = 'https://script.viserlab.com/webx';
+  static const String domainUrl = 'https://cacos.ru';
   //static const String domainUrl = 'https://url8.viserlab.com/webview';
   static const String baseUrl = '$domainUrl/api/';
   static const String imagePath = '$domainUrl/assets/images/';

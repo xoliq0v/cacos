@@ -1,4 +1,4 @@
-package dev.vlab.web_view_app
+package dev.cacos.uz
 
 import io.flutter.embedding.android.FlutterActivity
 

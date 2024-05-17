@@ -18,6 +18,8 @@ import 'core/theme/dark.dart';
 import 'core/theme/light.dart';
 import 'firebase_options.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:flutter/services.dart';
+
 
 Future<void> _messageHandler(RemoteMessage message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform); //r option
@@ -65,6 +67,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersiveSticky);
     return GetBuilder<ThemeController>(
       builder: (theme) => GetBuilder<LocalizationController>(
         builder: (localizeController) => GetMaterialApp(

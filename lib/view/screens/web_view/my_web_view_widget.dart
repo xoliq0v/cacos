@@ -12,6 +12,7 @@ import 'package:web_view_app/data/controller/primary/primary_screen_controller.d
 import 'package:web_view_app/view/components/custom_loader/custom_loader.dart';
 import 'package:web_view_app/view/components/dialog/exit_dialog.dart';
 import 'package:web_view_app/view/screens/web_view/widget/error_widget.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/utils/my_strings.dart';
 
@@ -32,6 +33,15 @@ class _MyWebViewWidgetState extends State<MyWebViewWidget> {
 
   String url = "";
   double progress = 0;
+
+  Future<void> _launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
 
   @override
   void initState() {
@@ -133,6 +143,15 @@ class _MyWebViewWidgetState extends State<MyWebViewWidget> {
                 androidOnPermissionRequest: (controller, origin, resources) async {
                   return PermissionRequestResponse(resources: resources, action: PermissionRequestResponseAction.GRANT);
                 },
+                shouldOverrideUrlLoading: (controller, navigationAction) async {
+                  var uri = navigationAction.request.url;
+                    print(uri.toString());
+                  if (!uri.toString().contains('https://cacos.uz')) {
+                    _launchURL(uri.toString());
+                    return NavigationActionPolicy.CANCEL;
+                  }
+                  return NavigationActionPolicy.ALLOW;
+                },
                 onLoadStop: (controller, url) async {
                   pullToRefreshController.endRefreshing();
                   setState(() {
@@ -186,11 +205,14 @@ class _MyWebViewWidgetState extends State<MyWebViewWidget> {
 
   InAppWebViewGroupOptions options = InAppWebViewGroupOptions(
     crossPlatform: InAppWebViewOptions(
-      clearCache: true,
       javaScriptEnabled: true,
+      cacheEnabled: true,
       useOnDownloadStart: true,
+      useOnLoadResource: true,
       useShouldOverrideUrlLoading: true,
-      mediaPlaybackRequiresUserGesture: false,
+      clearCache: false,
+      useShouldInterceptAjaxRequest: true,
+      useShouldInterceptFetchRequest: true,
     ),
     android: AndroidInAppWebViewOptions(
       useHybridComposition: true,
@@ -210,5 +232,11 @@ class _MyWebViewWidgetState extends State<MyWebViewWidget> {
   static void downloadCallback(String id, int status, int progress) {
     final SendPort? send = IsolateNameServer.lookupPortByName(MyStrings.downloaderSenPort);
     send?.send([id, status, progress]);
+  }
+
+  bool shouldOpenExternally(String url) {
+    // Add logic to determine if the URL should be opened externally
+    // For example, you could check if the URL contains certain keywords
+    return url.contains("https://cacos.uz");
   }
 }
