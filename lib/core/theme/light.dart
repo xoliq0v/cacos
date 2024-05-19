@@ -4,8 +4,8 @@ import '../utils/my_color.dart';
 
 ThemeData light = ThemeData(
     fontFamily: 'Inter',
-    primaryColor:MyColor.getPrimaryColor(),
-    brightness: Brightness.light,
+    primaryColor: Colors.black,
+      brightness: Brightness.dark,
     scaffoldBackgroundColor: MyColor.getBackgroundColor(),
     hintColor: MyColor.hintTextColor,
     buttonTheme: ButtonThemeData(

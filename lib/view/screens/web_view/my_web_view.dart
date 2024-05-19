@@ -47,10 +47,11 @@ class _MyWebViewScreenState extends State<MyWebViewScreen> {
   Widget build(BuildContext context) {
     return GetBuilder<AddsController>(
       builder: (adds) => GetBuilder<PrimaryScreenController>(
+
         builder: (controller) => controller.isLoading
             ? CustomLoader(loaderColor: MyColor.getPrimaryTextColor())
             : Scaffold(
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.black,
                 appBar: widget.isShowAppBar ? CustomAppBar(title: controller.siteName.tr, isShowBackBtn: true) : null,
                 body: Center(
                   child: Stack(

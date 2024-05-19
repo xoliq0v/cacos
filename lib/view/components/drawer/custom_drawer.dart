@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:web_view_app/core/route/route.dart';
-import 'package:web_view_app/core/utils/url_container.dart';
 import 'package:web_view_app/data/controller/primary/primary_screen_controller.dart';
 import 'package:web_view_app/view/components/divider/custom_divider.dart';
 import 'package:web_view_app/view/components/drawer/widget/drawer_heading_section.dart';
